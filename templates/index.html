@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Recommender</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        body {
+            background-color: lightskyblue; 
+        }
+
+        h1 {
+            text-align: center; 
+            margin-top: 20px;   
+            font-size: 40px;
+            text-shadow: 1px 2px black;
+        }
+
+        #centered-label {
+            text-align: center; 
+            display: block; 
+            margin: 0 auto; 
+            width: fit-content; 
+            font-size: 25px;
+            color: darkblue;
+            text-shadow: 1px 1px #3498db;
+        }
+
+        .form-container {
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        #book_title {
+            padding: 10px; 
+            width: 300px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px; /* Add padding for spacing */
+            border-radius: 50px 20px;
+            background-color: rgb(112, 243, 221);
+        }
+
+        .details-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Create equal spacing between details */
+        }
+
+        
+        .details-container {
+            white-space: nowrap; /* Prevent wrapping to the next line */
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+        }
+
+        /* Recommended Book Details item (each book's details) */
+        .details-item {
+            display: inline-block;
+            border: 2px solid #3498db;
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin-right: 10px; 
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 4px #888888;
+            width: 400px; 
+            white-space: normal; 
+            vertical-align: top;
+        }
+
+
+    </style>
+    
+</head>
+<body>
+    
+    <h1>Book Recommender</h1>
+
+    <div class="form-container">
+        <form method="post" action="/recommend">
+            <label for="book_title" id="centered-label">Enter Your Choice of Your Book:</label>
+            <input type="text" name="book_title" id="book_title" required>
+                 
+            <input type="submit" value="Recommend">
+        </form>
+    </div>
+
+    {% if recommended_details %}
+        
+        <h2><i>Recommended Book Details</i></h2>
+            {% for book in recommended_details %}
+            <div class="details-item">
+                <p class="book-detail"><strong>Title:</strong> {{ book['title'] }}</p>
+                <p class="book-detail"><strong>Author:</strong> {{ book['authors'] }}</p>
+                <p class="book-detail"><strong>Publisher:</strong> {{ book['publisher'] }}</p>
+                <p class="book-detail"><strong>ISBN:</strong> {{ book['isbn'] }}</p>
+                <p class="book-detail"><strong>Language:</strong> {{ book['language_code'] }}</p>
+                <p class="book-detail"><strong>Rating Counts:</strong> {{ book['ratings_count'] }}</p>
+            </div>
+            {% endfor %}
+        
+    {% endif %}
+
+          
+</body>
+</html>
